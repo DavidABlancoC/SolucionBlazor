@@ -1,0 +1,93 @@
+﻿@page "/reserva"
+@page "/reserva/{idReservaEditar:int}"
+
+@using BlazorCrud.Shared;
+@using BlazorCrud.Client.Services;
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject IReservaService reservaService;
+@inject NavigationManager navegacion;
+
+<h3>@titulo</h3>
+
+<EditForm Model="reserva" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Fecha de Entrada / Check-In</label>
+        <InputDate class="form-control" @bind-Value="reserva.FechaEntrada"></InputDate>
+        <ValidationMessage For="@(() => reserva.FechaEntrada)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Fecha de Salida / Check-Out</label>
+        <InputDate class="form-control" @bind-Value="reserva.FechaSalida"></InputDate>
+        <ValidationMessage For="@(() => reserva.FechaSalida)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <InputText class="form-control" @bind-Value="reserva.Estado"></InputText>
+        <ValidationMessage For="@(() => reserva.Estado)"></ValidationMessage>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        @btnTexto
+    </button>
+
+    <a class="btn btn-warning" href="reservas">Volver</a>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public int idReservaEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    ReservaDTO reserva = new ReservaDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idReservaEditar != 0)
+        {
+            reserva = await reservaService.Buscar(idReservaEditar);
+            btnTexto = "Actualizar Reserva";
+            titulo = "Editar Reserva";
+        }
+        else
+        {
+            var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
+
+            reserva.FechaEntrada = today;
+            reserva.FechaSalida = tomorrow;
+            reserva.FechaReserva = today;
+            btnTexto = "Actualizar Reserva";
+            titulo = "Nuevo Reserva";
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idDevuelto = 0;
+
+        if (idReservaEditar == 0)
+        {
+            idDevuelto = await reservaService.Guardar(reserva);
+        }
+        else
+        {
+            idDevuelto = await reservaService.Editar(reserva);
+        }
+
+        if (idReservaEditar != 0)
+        {
+            navegacion.NavigateTo("/reservas");
+        }
+
+    }
+
+
+}

@@ -1,0 +1,61 @@
+﻿@page "/habitaciones"
+
+@using BlazorCrud.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using BlazorCrud.Client.Services;
+
+@inject SweetAlertService SwtAlert;
+@inject IHabitacionService habitacionService;
+
+<h3>@titulo</h3>
+
+<a class="btn btn-success btn-sm mb-3" href="habitacion">Nueva Habitacion</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id Hotel</th>
+            <th>Numero de Habitacion</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaHabitacion == null)
+        {
+            <tr>
+                <td colspan="5" align="center">
+                    <p>No hay entradas disponibles</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in listaHabitacion)
+            {
+                <tr>
+                    <td>@item.IdHotel</td>
+                    <td>@item.NumeroHabitacion</td>
+                    <td>@item.Estado</td>                    
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="habitacion/@item.IdHabitacion">
+                            <i class="oi oi-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    string titulo = string.Empty;
+
+    List<HabitacionDTO>? listaHabitacion = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        titulo = "Habitaciones";
+        listaHabitacion = await habitacionService.Lista();
+    }
+}

@@ -1,0 +1,93 @@
+﻿@page "/usuario"
+@page "/usuario/{idUsuarioEditar:int}"
+
+@using BlazorCrud.Shared;
+@using BlazorCrud.Client.Services;
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject IUsuarioService usuarioService;
+@inject NavigationManager navegacion;
+
+<h3>@titulo</h3>
+
+<EditForm Model="usuario" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <InputText class="form-control" @bind-Value="usuario.Nombre"></InputText>
+        <ValidationMessage For="@(() => usuario.Nombre)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Apellidos</label>
+        <InputText class="form-control" @bind-Value="usuario.Apellidos"></InputText>
+        <ValidationMessage For="@(() => usuario.Apellidos)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mail</label>
+        <InputText class="form-control" @bind-Value="usuario.Mail"></InputText>
+        <ValidationMessage For="@(() => usuario.Apellidos)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Direccion</label>
+        <InputText class="form-control" @bind-Value="usuario.Direccion"></InputText>
+        <ValidationMessage For="@(() => usuario.Direccion)"></ValidationMessage>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        @btnTexto
+    </button>
+
+    <a class="btn btn-warning" href="usuarios">Volver</a>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public int idUsuarioEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    UsuarioDTO usuario = new UsuarioDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idUsuarioEditar != 0)
+        {
+            usuario = await usuarioService.Buscar(idUsuarioEditar);
+            btnTexto = "Actualizar Usuario";
+            titulo = "Editar Usuario";
+        }
+        else
+        {
+            btnTexto = "Actualizar Usuario";
+            titulo = "Nuevo Usuario";
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idDevuelto = 0;
+
+        if (idUsuarioEditar == 0)
+        {
+            idDevuelto = await usuarioService.Guardar(usuario);
+        }
+        else
+        {
+            idDevuelto = await usuarioService.Editar(usuario);
+        }
+
+        if (idUsuarioEditar != 0)
+        {
+            navegacion.NavigateTo("/usuarios");
+        }
+
+    }
+
+
+}

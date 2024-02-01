@@ -1,0 +1,104 @@
+﻿@page "/habitacion"
+@page "/habitacion/{idHabitacionEditar:int}"
+
+@using BlazorCrud.Shared;
+@using BlazorCrud.Client.Services;
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject IHabitacionService habitacionService;
+@inject IHotelService hotelService;
+@inject NavigationManager navegacion;
+
+<h3>@titulo</h3>
+
+<EditForm Model="habitacion" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Id Hotel</label>
+        <InputSelect class="form-control" @bind-Value="habitacion.IdHotel">
+
+            <option value="0">--Seleccionar Hotel--</option>
+            @foreach(var item in listaHotel)
+            {
+                <option value="@item.IdHotel">@item.Nombre</option>
+            }
+
+        </InputSelect>
+        <ValidationMessage For="@(() => habitacion.IdHotel)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Numero de Habitacion</label>
+        <InputNumber class="form-control" @bind-Value="habitacion.NumeroHabitacion"></InputNumber>
+        <ValidationMessage For="@(() => habitacion.NumeroHabitacion)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <InputSelect class="form-control" @bind-Value="habitacion.Estado">
+
+            <option value="0">--Seleccionar Hotel--</option>
+            <option value="Libre">Libre</option>
+            <option value="Ocupado">Ocupado</option>
+            <option value="Reservado">Reservado</option>
+
+        </InputSelect>
+        <ValidationMessage For="@(() => habitacion.Estado)"></ValidationMessage>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        @btnTexto
+    </button>
+
+    <a class="btn btn-warning" href="habitaciones">Volver</a>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public int idHabitacionEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    HabitacionDTO habitacion = new HabitacionDTO();
+    List<HotelDTO> listaHotel = new List<HotelDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idHabitacionEditar != 0)
+        {
+            habitacion = await habitacionService.Buscar(idHabitacionEditar);
+            btnTexto = "Actualizar Habitacion";
+            titulo = "Editar Habitacion";
+        }
+        else
+        {
+            btnTexto = "Actualizar Habitacion";
+            titulo = "Nueva Habitacion";
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idDevuelto = 0;
+
+        if (idHabitacionEditar == 0)
+        {
+            idDevuelto = await habitacionService.Guardar(habitacion);
+        }
+        else
+        {
+            idDevuelto = await habitacionService.Editar(habitacion);
+        }
+
+        if (idHabitacionEditar != 0)
+        {
+            navegacion.NavigateTo("/habitaciones");
+        }
+
+    }
+
+
+}

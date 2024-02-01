@@ -1,0 +1,79 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = BlazorCrud.Client
+build_property.RootNamespace = BlazorCrud.Client
+build_property.ProjectDir = C:\projects\ptecnica\solucionBlazorCopy\SolucionBlazor\BlazorCrud.Client\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\projects\ptecnica\solucionBlazorCopy\SolucionBlazor\BlazorCrud.Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Debug.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVidWcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Habitacion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGFiaXRhY2lvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Habitaciones.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSGFiaXRhY2lvbmVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Hotel.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG90ZWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Hoteles.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG90ZWxlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Reserva.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXJ2YS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Reservas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXJ2YXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Usuario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXN1YXJpby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Pages/Usuarios.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXN1YXJpb3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-mfiejmohyr
+
+[C:/projects/ptecnica/solucionBlazorCopy/SolucionBlazor/BlazorCrud.Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hu89xo3lx1

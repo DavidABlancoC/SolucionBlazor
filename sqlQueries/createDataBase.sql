@@ -1,0 +1,39 @@
+CREATE DATABASE DBCrudHoteleria
+USE DBCrudHoteleria
+
+CREATE TABLE Usuario (
+	IdUsuario INT PRIMARY KEY IDENTITY (1,1),
+	Nombre VARCHAR(50) NOT NULL,
+	Apellidos VARCHAR(60) NOT NULL,
+	Mail VARCHAR(60) NOT NULL UNIQUE,
+	Direccion VARCHAR(60) NOT NULL
+)
+
+CREATE TABLE Hotel (
+	IdHotel INT PRIMARY KEY IDENTITY (1,1),
+	Nombre VARCHAR(50) NOT NULL,
+	Pais VARCHAR(50) NOT NULL,
+	Latitud DECIMAL(8,6) NOT NULL,
+	Longitud DECIMAL(9,6) NOT NULL,
+	Descripcion TEXT,
+	Activo TEXT NOT NULL,
+	Cant_Habitaciones VARCHAR(8) NOT NULL
+)
+
+CREATE TABLE Habitacion (
+	IdHabitacion INT PRIMARY KEY IDENTITY (1,1),
+	IdHotel INT REFERENCES Hotel(IdHotel) NOT NULL,
+	Numero_Habitacion VARCHAR(8) NOT NULL,
+	Estado TEXT NOT NULL,
+)
+
+CREATE TABLE Reserva (
+	IdReserva INT PRIMARY KEY IDENTITY (1,1),
+	IdUsuario INT REFERENCES Usuario(IdUsuario) NOT NULL,
+	IdHotel INT REFERENCES Hotel(IdHotel) NOT NULL,
+	IdHabitacion INT REFERENCES Habitacion(IdHabitacion) NOT NULL,
+	Fecha_Entrada DATE NOT NULL,
+	Fecha_Salida DATE NOT NULL,
+	Fecha_Reserva DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	Estado TEXT NOT NULL,
+)

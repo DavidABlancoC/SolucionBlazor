@@ -1,0 +1,134 @@
+﻿@page "/hotel"
+@page "/hotel/{idHotelEditar:int}"
+
+@using BlazorCrud.Shared;
+@using BlazorCrud.Client.Services;
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject IHotelService hotelService;
+@inject NavigationManager navegacion;
+
+<h3>@titulo</h3>
+
+<EditForm Model="hotel" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <InputText class="form-control" @bind-Value="hotel.Nombre"></InputText>
+        <ValidationMessage For="@(() => hotel.Nombre)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Pais</label>
+        <InputText class="form-control" @bind-Value="hotel.Pais"></InputText>
+        <ValidationMessage For="@(() => hotel.Pais)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Latitud</label>
+        <InputNumber class="form-control" @bind-Value="hotel.Latitud"></InputNumber>
+        <ValidationMessage For="@(() => hotel.Latitud)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Longitud</label>
+        <InputNumber class="form-control" @bind-Value="hotel.Longitud"></InputNumber>
+        <ValidationMessage For="@(() => hotel.Longitud)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <InputText class="form-control" @bind-Value="hotel.Descripcion"></InputText>
+        <ValidationMessage For="@(() => hotel.Descripcion)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Activo</label>
+        <InputSelect class="form-control" @bind-Value="hotel.Activo">
+
+            <option value="">--Seleccionar Estado--</option>
+            @foreach(var item in listaEstados)
+            {
+                <option value="@item">@item</option>
+            }
+
+        </InputSelect>
+        <ValidationMessage For="@(() => hotel.Activo)"></ValidationMessage>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Habitaciones</label>
+        <InputText class="form-control" @bind-Value="hotel.CantHabitaciones"></InputText>
+        <ValidationMessage For="@(() => hotel.CantHabitaciones)"></ValidationMessage>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        @btnTexto
+    </button>
+
+    <a class="btn btn-warning" href="hoteles">Volver</a>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public int idHotelEditar { get; set; } = 0;
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    List<string> listaEstados = new List<string>();
+
+    HotelDTO hotel = new HotelDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaEstados.Add("Activo");
+        listaEstados.Add("Inactivo");
+
+        if (idHotelEditar != 0)
+        {
+            hotel = await hotelService.Buscar(idHotelEditar);
+            btnTexto = "Actualizar Hotel";
+            titulo = "Editar Hotel";
+        }
+        else
+        {
+            btnTexto = "Actualizar Hotel";
+            titulo = "Nuevo Hotel";
+        }
+        
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idDevuelto = 0;
+
+        if (idHotelEditar == 0)
+        {
+            // if (listaEstados.Equals("Activo"))
+            // {
+            //     hotel.Activo = "Activo";
+            // }
+            // else if (listaEstados.Equals("Inactivo"))
+            // {
+            //     hotel.Activo = "Inactivo";
+            // }
+
+            idDevuelto = await hotelService.Guardar(hotel);
+        }
+        else
+        {
+            idDevuelto = await hotelService.Editar(hotel);
+        }
+
+        if (idHotelEditar != 0)
+        {
+            navegacion.NavigateTo("/hoteles");
+        }
+
+    }
+
+
+}

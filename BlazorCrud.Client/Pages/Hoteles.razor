@@ -1,0 +1,69 @@
+﻿@page "/hoteles"
+
+@using BlazorCrud.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using BlazorCrud.Client.Services;
+
+@inject SweetAlertService SwtAlert;
+@inject IHotelService hotelService;
+
+<h3>@titulo</h3>
+
+<a class="btn btn-success btn-sm mb-3" href="hotel">Nuevo Hotel</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Pais</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Descripcion</th>
+            <th>Activo</th>
+            <th>Habitaciones</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listaHotel == null)
+        {
+            <tr>
+                <td colspan="5" align="center">
+                    <p>No hay entradas disponibles</p>
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in listaHotel)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Pais</td>
+                    <td>@item.Latitud</td>
+                    <td>@item.Longitud</td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Activo</td>
+                    <td>@item.CantHabitaciones</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="hotel/@item.IdHotel">
+                            <i class="oi oi-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    string titulo = string.Empty;
+
+    List<HotelDTO>? listaHotel = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        titulo = "Hoteles";
+        listaHotel = await hotelService.Lista();
+    }
+}
